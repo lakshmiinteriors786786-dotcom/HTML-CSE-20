@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        html,*{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        main{
+            width: 1200px;
+            height: 1000;
+            background-color:#000 ;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        nav,header,footer,article{
+            background-color: blueviolet; height: 140px; text-align: center;line-height: 140px;
+        }
+        section{
+            height: 300px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+        .box{
+            flex-grow: 1;
+            background-color: #456;
+            text-align: center;
+            line-height: 300px;
+        }
+        @media screen and (max-width:600px){
+            main{
+                background-color:lightgreen;
+                grid-template-columns: repeat(1, 1fr);
+                gap:15px;
+                display:grid;
+            }
+        }
+        @media screen  and (min-width:601px) and (max-width:900px){
+            .box{
+                background-color:lightcoral;
+            }
+        }
+        @media screen and(min-width:601px)and (max-width:900px){
+        .h1{ 
+            font-size: 20px;
+            background-color: bisque;    
+        }
+    }
+
+    </style>
+</head>
+<body>
+    <main>
+        <nav><h2>LOGO</h2></nav>
+        <header><h2>HEADER</h2></header>
+        <article><h2>TEXT AREA</h2></article>
+        <section>
+            <box class="box"><h2>Box1</h2></box>
+            <box class="box"><h2>Box2</h2></box>
+            <box class="box"><h2>Box3</h2></box>
+        </section>
+        <footer><h2>FOOTER</h2></footer>
+    </main>    
+</body>
+</html>
