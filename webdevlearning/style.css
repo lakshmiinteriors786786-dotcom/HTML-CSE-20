@@ -1,0 +1,124 @@
+*{
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
+}
+body{
+    background: linear-gradient(rgb(245, 246, 249),rgb(199, 204, 228));
+    background-repeat: no-repeat;
+    font-family: "Ubuntu";
+}
+header{
+    display: flex;
+    gap: 1em;
+    background-color: rgba(255, 255, 255, 0.277);
+    align-items: center;
+    height: 60px;
+    border-bottom: 1px solid hsla(208, 24%, 86%, 0.975);
+    padding: 1em 2em;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    backdrop-filter: blur(15px);
+}
+header h1{
+    flex-grow: 1;
+}
+header .headerNav{
+    display: flex;
+    gap: 1em;
+}
+header .headerNav ul {
+    display: flex;
+    gap: 2em;
+    list-style: none;
+    flex-wrap: wrap;
+    align-items: center;
+}
+header .headerNav ul svg {
+    width: 1.5em;
+    height: 1.5em;
+}
+header .headerNav ul input {
+    border: 1px solid hsl(208, 23%, 86%);
+    background-color: #e4e5e9;
+    border-radius: 2em;
+    padding: 0.5em 2em;
+    letter-spacing: 1px;
+}
+header .headerNav ul input::placeholder {
+    color: black;
+    font-family: "Ubuntu";
+}
+nav{
+    padding: 1em 2em;
+    background-color: aliceblue;
+}
+nav ul{
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    justify-content: space-between;
+    list-style: none;
+}
+nav ul li{
+    padding: 0.5em 1em;
+}
+nav ul li:hover{
+    border-bottom: 1px solid blue;
+   color: blue; 
+}
+main #hero-section{
+    height: 42vh;
+    width: 100%;
+    background-color: black;
+    overflow: hidden;
+}
+main #hero-section img{
+    width: 100%;
+    height: 70vh;
+}
+.featured-section{
+    /* height: 50vh; */
+    align-items: center;
+    background: aliceblue;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 2em;
+    padding: 2em;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.featured-section .featured-cards {
+    background-color: white;
+    grid-template-columns: repeat(2,1fr);
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    grid-row: 1em;
+    box-sizing: border-box;
+}
+.featured-section .featured-cards .featured-items{
+    width: 100%;
+    /* height: 30vh; */
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    border: 4px solid aliceblue;
+}
+.featured-section .featured-cards .featured-items h2{
+    font-size: 1em;
+}
+.featured-section .featured-cards img{
+    height: 30vh;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 2em;
+}
