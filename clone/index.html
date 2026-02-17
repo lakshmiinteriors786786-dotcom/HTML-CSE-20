@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Clone | HTML & CSS Only</title>
+    <style>
+        /* --- 1. RESET & BASE STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Amazon Ember", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #E3E6E6;
+        }
+
+        a { text-decoration: none; color: inherit; cursor: pointer; }
+        ul { list-style: none; }
+
+        /* --- 2. HEADER SECTION --- */
+        header {
+            background-color: #131921;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            gap: 20px;
+            height: 60px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Logo */
+        .logo {
+            width: 100px;
+            padding: 5px 0;
+            border: 1px solid transparent;
+            padding: 5px;
+        }
+        .logo:hover { border: 1px solid white; border-radius: 2px; }
+        .logo img { width: 100%; object-fit: contain; margin-top: 5px; }
+
+        /* Location */
+        .location {
+            display: flex;
+            flex-direction: column;
+            font-size: 12px;
+            color: #CCCCCC;
+            padding: 5px;
+            border: 1px solid transparent;
+        }
+        .location:hover { border: 1px solid white; border-radius: 2px; }
+        .location span:last-child {
+            font-weight: bold;
+            color: white;
+            font-size: 14px;
+        }
+
+        /* Search Bar */
+        .search-container {
+            flex-grow: 1;
+            display: flex;
+            height: 40px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .search-dropdown {
+            background-color: #f3f3f3;
+            border: none;
+            padding: 0 10px;
+            font-size: 12px;
+            color: #555;
+            cursor: pointer;
+            border-right: 1px solid #cdcdcd;
+        }
+        .search-input {
+            flex-grow: 1;
+            border: none;
+            padding: 0 10px;
+            font-size: 15px;
+        }
+        .search-input:focus { outline: none; }
+        .search-btn {
+            background-color: #febd69;
+            border: none;
+            width: 45px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .search-btn:hover { background-color: #f3a847; }
+
+        /* Right Nav */
+        .nav-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 12px;
+            padding: 8px 10px;
+            border: 1px solid transparent;
+        }
+        .nav-item:hover { border: 1px solid white; border-radius: 2px; }
+        .nav-item span:first-child { color: #CCCCCC; }
+        .nav-item span:last-child { font-weight: bold; font-size: 14px; }
+
+        .cart-icon {
+            display: flex;
+            align-items: flex-end;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        /* Simple Cart SVG via CSS/HTML */
+        .cart-svg { width: 30px; fill: white; }
+
+        /* --- 3. SUB-HEADER --- */
+        .sub-header {
+            background-color: #232f3e;
+            color: white;
+            padding: 5px 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            height: 40px;
+        }
+        .menu-btn { font-weight: bold; display: flex; align-items: center; gap: 5px; cursor: pointer; }
+        .sub-nav-links a { margin-right: 15px; padding: 5px; border: 1px solid transparent; }
+        .sub-nav-links a:hover { border: 1px solid white; border-radius: 2px; }
+
+        /* --- 4. HERO SECTION --- */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 600px; /* Force height for demo */
+            /* Web Guided Image for Hero */
+            background-image: url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTg3NjU0MzJ8&ixlib=rb-4.0.3&q=85');
+            background-size: cover;
+            background-position: center top;
+            /* Gradient Mask to fade into product grid */
+            mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        }
+        
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to bottom, transparent, #E3E6E6);
+        }
+
+        /* --- 5. PRODUCT GRID --- */
+        .main-content {
+            position: relative;
+            margin-top: -300px; /* Pull up over the hero image */
+            padding: 20px;
+            z-index: 10;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 420px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        
+        /* Interactive CSS: Hover Lift */
+        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+
+        .card h2 { font-size: 21px; margin-bottom: 10px; }
+        
+        .card-image {
+            flex-grow: 1;
+            margin-bottom: 10px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .card-image img {
+            max-width: 100%;
+            max-height: 250px;
+            object-fit: contain;
+        }
+
+        .card-link {
+            color: #007185;
+            font-size: 13px;
+        }
+        .card-link:hover { text-decoration: underline; color: #C7511F; }
+
+        /* --- 6. FOOTER --- */
+        .back-to-top {
+            background-color: #37475a;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 13px;
+            margin-top: 40px;
+            cursor: pointer;
+        }
+        .back-to-top:hover { background-color: #485769; }
+
+        footer {
+            background-color: #232f3e;
+            color: #DDD;
+            padding: 40px 0;
+            text-align: center;
+            font-size: 12px;
+        }
+        
+        .footer-cols {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        
+        .footer-col h3 { color: white; margin-bottom: 10px; font-size: 16px; }
+        .footer-col ul li { margin-bottom: 8px; }
+        .footer-col ul li:hover { text-decoration: underline; cursor: pointer; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon Logo">
+        </a>
+
+        <div class="location">
+            <span>Deliver to User</span>
+            <span>New York 10012</span>
+        </div>
+
+        <div class="search-container">
+            <button class="search-dropdown">All ▼</button>
+            <input type="text" class="search-input" placeholder="Search Amazon">
+            <button class="search-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            </button>
+        </div>
+
+        <div class="nav-right">
+            <a href="#" class="nav-item">
+                <span>Hello, Sign in</span>
+                <span>Account & Lists</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span>Returns</span>
+                <span>& Orders</span>
+            </a>
+            <a href="#" class="nav-item cart-icon">
+                <svg class="cart-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span>Cart</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="sub-header">
+        <div class="menu-btn">☰ All</div>
+        <div class="sub-nav-links">
+            <a href="#">Today's Deals</a>
+            <a href="#">Customer Service</a>
+            <a href="#">Registry</a>
+            <a href="#">Gift Cards</a>
+            <a href="#">Sell</a>
+        </div>
+    </div>
+
+    <div class="hero"></div>
+
+    <div class="main-content">
+        <div class="product-grid">
+
+            <div class="card">
+                <h2>Gaming Headsets</h2>
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?auto=format&fit=crop&w=500&q=60" alt="Headphones">
+                </div>
+                <a href="#" class="card-link">See all deals</a>
+            </div>
+
+            <div class="card">
+                <h2>Electronics</h2>
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=500&q=60" alt="Electronics">
+                </div>
+                <a href="#" class="card-link">Shop latest tech</a>
+            </div>
+
+            <div class="card">
+                <h2>Home & Kitchen</h2>
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=500&q=60" alt="Kitchen">
+                </div>
+                <a href="#" class="card-link">Discover more</a>
+            </div>
+
+            <div class="card">
+                <h2>Health & Personal Care</h2>
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1576426863848-c21f5fc67255?auto=format&fit=crop&w=500&q=60" alt="Health">
+                </div>
+                <a href="#" class="card-link">Shop now</a>
+            </div>
+            
+            <div class="card">
+                <h2>Refresh your space</h2>
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=500&q=60" alt="Furniture">
+                </div>
+                <a href="#" class="card-link">See home decor</a>
+            </div>
+
+            <div class="card">
+                <h2>Beauty Picks</h2>
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdd403348?auto=format&fit=crop&w=500&q=60" alt="Beauty">
+                </div>
+                <a href="#" class="card-link">Shop beauty</a>
+            </div>
+
+            <div class="card">
+                <h2>Fitness Needs</h2>
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=500&q=60" alt="Fitness">
+                </div>
+                <a href="#" class="card-link">Get fit today</a>
+            </div>
+
+             <div class="card">
+                <h2>New Arrivals</h2>
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=60" alt="Shoes">
+                </div>
+                <a href="#" class="card-link">See more</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="back-to-top">Back to top</div>
+    <footer>
+        <div class="footer-cols">
+            <div class="footer-col">
+                <h3>Get to Know Us</h3>
+                <ul>
+                    <li>Careers</li>
+                    <li>Blog</li>
+                    <li>About Amazon</li>
+                    <li>Investor Relations</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Make Money with Us</h3>
+                <ul>
+                    <li>Sell products on Amazon</li>
+                    <li>Sell on Amazon Business</li>
+                    <li>Sell apps on Amazon</li>
+                    <li>Become an Affiliate</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Amazon Payment Products</h3>
+                <ul>
+                    <li>Amazon Business Card</li>
+                    <li>Shop with Points</li>
+                    <li>Reload Your Balance</li>
+                    <li>Amazon Currency Converter</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Let Us Help You</h3>
+                <ul>
+                    <li>Amazon and COVID-19</li>
+                    <li>Your Account</li>
+                    <li>Your Orders</li>
+                    <li>Help</li>
+                </ul>
+            </div>
+        </div>
+        <br>
+        <hr style="opacity: 0.2; max-width: 1000px; margin: 20px auto;">
+        <br>
+        <p>&copy; 1996-2025, Amazon.com, Inc. or its affiliates</p>
+    </footer>
+
+</body>
+</html>
